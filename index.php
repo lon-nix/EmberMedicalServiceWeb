@@ -6,7 +6,7 @@
     $results = $crud-> getSchedule();
 ?>
 <div class="">
-<div class="container-fluid">
+<div class="container-fluid ">
     <div class="d-flex justify-content-center align-items-center"
         style= "background-image: url('images/doctor-bg.jpg'); height: 52em; background-size:cover;  background-repeat:no-repeat; background-position: center center;">
         <div id="intro" class="bg-image shadow-2-strong ">
@@ -25,14 +25,12 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
-</br>
-<?php require_once 'includes/footer.php';?>
-</div>
-<hr>
+
+
 
 <!-- About Us page -->
-<div class="container-fluid" id="about">
+<div class="container-fluid p-md-4" id="about">
+<hr>
     <div class="col-6 align-center">
             <h2 class="mbr-section-title pb-2 mbr-fonts-style display-2"> About Us</h2>
                 </div>
@@ -51,10 +49,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
-    </br>
-    <?php require_once 'includes/footer.php';?>
-</div>
+
 
   <!-- Groups section start -->
   <section id="groups">
@@ -128,10 +123,7 @@
         </div>
     </div>
  </section>
-<div class="container-fluid">
-    </br>
-    <?php require_once 'includes/footer.php';?>
-</div>
+
 
 <!-- Contact Us page stats here -->
 <section id="contact">

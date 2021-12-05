@@ -30,6 +30,6 @@
     $crud = new crud($pdo);
     $user = new user($pdo);
    
-    $user->insertPatientUser("admin","@dministrat0r");
+    $user->insertUser("admin","@dministrat0r");
 
 ?>
