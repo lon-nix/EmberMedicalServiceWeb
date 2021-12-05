@@ -14,7 +14,7 @@
     $lname = $_POST['lastName'];
     $address = $_POST['address'];
     $gender = $_POST['gender'];
-    $dob = $_POST['dateofbirth'];
+    $dob = date ('Y-m-d H:i:s',strtotime ($_POST['dateofbirth']));
     $email = $_POST['email'];
     $username = $_POST['username'];
     $phone = $_POST['phone'];
