@@ -64,7 +64,7 @@
 
          
           <div class="form-outline mb-3">
-          <label class="form-label" for="password">Password</label>
+            <label class="form-label" for="password">Password</label>
             <input type="password" name= "password" id="password" class="form-control form-control-lg"/>
             
           </div>
@@ -79,5 +79,12 @@
 
         </form>
       </div> 
+    </div> 
+  </div> 
+
+  <div class="container-fluid">
+</br>
+<?php require_once 'includes/footer.php';?>
+</div>
 
      
