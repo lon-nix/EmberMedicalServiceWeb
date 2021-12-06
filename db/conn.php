@@ -1,11 +1,11 @@
 <?php 
 
    // Developement connection 
-   /*  $host = '127.0.0.1';
+    /* $host = '127.0.0.1';
     $db = 'ember_medical_db';
     $user = 'root';
     $pass = '';
-    $charset = 'utf8mb4';   */
+    $charset = 'utf8mb4';    */
 
     //Remote connection
     $host = 'remotemysql.com';

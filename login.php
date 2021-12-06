@@ -5,7 +5,7 @@
     
     //If data was submitted via a form POST request, then...
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $username = strtolower(trim($_POST['username']));
+    $username = $_POST['username'];
     $password = $_POST['password'];
     $new_password = md5($password.$username);
 
@@ -25,6 +25,7 @@
         header("Location: dashboard.php");
     } */
     $user = $crud->loginPatient($username,$new_password);
+    
     if($user){
 
       $_SESSION['username'] = $username;

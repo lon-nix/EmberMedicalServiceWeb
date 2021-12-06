@@ -1,4 +1,5 @@
  <?php 
+ 
     class crud {
         //private databes object
         private $db;
@@ -11,14 +12,7 @@
         //function to insert a new record into the attendee database
         public function insertPatient($fname, $lname, $dob, $gender, $address, $phone, $email, $username, $password, $avatar_path){
             try {
-                $result = $this->getPatientbyUsername($username);
                 
-                if($result['num'] > 0){
-                    return false; 
-                    
-                } else{
-                    
-
                 $sql = "INSERT INTO patient (patientFirstName, patientLastName, patientDOB, patientGender, patientAddress, patientPhone, patientEmail, username, password, avatar_path) 
                 VALUES(:fname, :lname, :dob, :gender, :address, :phone, :email, :username, :password, :avatar_path)";
                 $stmt = $this->db->prepare($sql);
@@ -37,7 +31,7 @@
                 //execute statement
                 $stmt->execute();
                 return true;
-                }
+              
 
             } catch (PDOException $e) {
                 echo $e->getMessage();
@@ -45,6 +39,7 @@
             }
         }
 
+        //Get all patient from database
         public function getPatients(){
             try {
                 $sql = "SELECT * FROM `patient`";
@@ -58,6 +53,7 @@
                 
         }
 
+        //Autheniate patient login
         public function loginPatient($username,$password){
             try{
                 $sql = "select * from patient where username = :username AND password = :password ";
@@ -73,6 +69,7 @@
             }
         }
 
+        //Checked if username was already added to the database
         public function getPatientbyUsername($username){
             try{
                 $sql = "select count(*) as num from patient where username = :username";
@@ -88,7 +85,7 @@
             }
         }
 
-
+        //Checked if email address was already added to the database
         public function getPatientbyEmail($email){
             try{
                 $sql = "select count(*) as num from patient where patientEmail = :email";
@@ -103,6 +100,7 @@
             }
         }
 
+        //Get patient record by ID
         public function getPatientDetails($id){
             try {    
                 $sql = "select * from patient where patient_id = :id";
@@ -118,6 +116,7 @@
 
         }
 
+        //Update patient record
         public function editPatient($id, $fname, $lname, $dob, $gender, $address, $phone, $email, $username, $avatar_path){
             try {
                     $sql = "UPDATE `patient` SET `patientFirstName`=:fname,`patientLastName`=:lname,`patientDOB`=:dob,
@@ -143,6 +142,8 @@
                 return false;
             }
         }
+
+        //Updating patient by admin
         public function adminEditPatient($id, $fname, $lname, $dob, $gender, $address, $phone, $username){
             try {
                     $sql = "UPDATE `patient` SET `patientFirstName`=:fname,`patientLastName`=:lname,`patientDOB`=:dob,
@@ -167,6 +168,7 @@
             }
         }
 
+        //delete patient record
         public function deletePatient($id){
             try {
                 $sql = "delete from patient where patient_id = :id";
@@ -206,6 +208,7 @@
             }
         }
 
+        //Function to get all doctors fro mthe database
         public function getDoctors(){
             try {
                 $sql = "select * from doctor";
@@ -219,6 +222,7 @@
                 
         }
 
+        //Get doctor record by ID
         public function getDoctorDetails($id){
             try {    
                 $sql = "select * from doctor where doctor_id = :id";
@@ -234,6 +238,7 @@
 
         }
 
+        //Update doctor record
         public function editDoctor($id, $name, $address, $phone, $dob, $email, $username, $avatar_path){
             try {
                     $sql = "UPDATE `doctor` SET `doctorName`= :name, `doctorAddress`=:address,
@@ -258,6 +263,7 @@
             }
         }
 
+        //Delete doctor record
         public function deleteDoctor($id){
             try {
                 $sql = "delete from doctor where doctor_id = :id";
@@ -297,6 +303,8 @@
             }
         }
 
+
+        //Get all schedule from the database
         public function getSchedule(){
             try {
                 $sql = "SELECT * FROM `doctorschedule`  s inner  join doctor d on s.doctor_id = d.doctor_id";
@@ -310,6 +318,7 @@
                 
         }
 
+        //Get schedule record by ID
         public function getScheduleDetails($id){
             try {    
                 $sql = "select * from doctorschedule s inner  join doctor d on s.doctor_id = d.doctor_id where schedule_Id = :id";
@@ -325,6 +334,7 @@
 
         }
 
+        //Updated schedule details
         public function editSchedule($id, $scheduleDate, $scheduleDay, $startTime, $endTime, $bookAvail, $doctor){
             try {
                     $sql = "UPDATE `doctorschedule` SET `scheduleDate`=:schedule_Date,`scheduleDay`=:schedule_Day, `startTime`=:start_Time,
@@ -346,6 +356,8 @@
                 return false;
             }
         }
+
+        //Updated the doctor schedule availability
         public function editScheduleAvailability($id, $bookAvail){
             try {
                     $sql = "UPDATE `doctorschedule` SET `bookAvail`=:book_Avail WHERE `schedule_Id`= :id";
@@ -362,6 +374,7 @@
             }
         }
 
+        //Delete schedule
         public function deleteSchedule($id){
             try {
                 $sql = "delete from doctorschedule where schedule_Id = :id";
@@ -403,6 +416,7 @@
             }
         }
 
+        //Get all appointments from database
         public function getAppt(){
             try {
                 $sql = "SELECT * FROM `appointment`  a inner  join doctor d on a.doctor_id = d.doctor_id
@@ -417,6 +431,7 @@
                 
         }
 
+        //Get appointment detail by ID
         public function getApptDetails($id){
             try {    
                 $sql = "select * from appointment s inner  join doctor d on s.doctor_id = d.doctor_id where appt_Id = :id";
@@ -432,38 +447,7 @@
 
         }
 
-        public function paitentApptDetails($id){
-            try {    
-                $sql = "select * from appointment a inner join doctorschedule s on a.doctorSchedule_Id = s.schedule_Id 
-                inner join patient p on a.patient_id = p.patient_id inner  join doctor d on a.doctor_id = d.doctor_id where a.patient_id = :id";
-                $stmt = $this->db->prepare($sql);
-                $stmt->bindparam(':id',$id);
-                $stmt->execute();
-                $result = $stmt->fetch();
-                return $result;
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                return false;
-            }
-
-        }
-        public function getPatientAppt($id){
-            try {    
-                $sql = "select * from appointment a inner join doctorschedule s on a.doctorSchedule_Id = s.schedule_Id 
-                inner join patient p on a.patient_id = p.patient_id inner  join doctor d on a.doctor_id = d.doctor_id where a.patient_id = :id"; 
-                $stmt = $this->db->prepare($sql);
-                $stmt->bindparam(':id',$id);
-                $stmt->execute();
-                
-               // $result = $stmt->fetch();
-                return $result;
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-                return false;
-            }
-
-        }
-
+        //Update appointment details
         public function editAppt($id, $scheduleDate, $scheduleDay, $startTime, $endTime, $bookAvail, $doctor){
             try {
                     $sql = "UPDATE `appointment` SET `scheduleDate`=:schedule_Date,`scheduleDay`=:schedule_Day, `startTime`=:start_Time,
@@ -486,6 +470,7 @@
             }
         }
 
+        //Delete appointment from database
         public function deleteAppt($id){
             try {
                 $sql = "delete from appointment where appt_Id = :id";
@@ -501,6 +486,7 @@
 
         }
 
+        //Count the ammount of appointments listed in the database
         public function NumAppt(){
             try {
                 $sql = "SELECT COUNT(*) FROM appointment";;
@@ -512,24 +498,16 @@
             }
 
         }
+
+        //Count the ammount of appointments listed for today (current day)
         public function todayAppt(){
             try {
-                $sql = "SELECT * FROM appointment
+                $sql = "SELECT COUNT(*) FROM appointment
                 INNER JOIN doctorschedule
                 ON doctorschedule.schedule_Id = appointment.doctorSchedule_Id 
                 WHERE scheduleDate = CURDATE()";
-                $stmt = $this->db->prepare($sql)->fetch()[0];
-                               
-                //$stmt->rowCount();
-                
-                if($stmt == 0) { // here I am facing issue
-                    //some stuff
-                    return $stmt ?? 0;
-                } else {
-                    //some stuff
-                    return $stmt;
-                }
-                   
+                $stmt = $this->db->query($sql)->fetch()[0];
+                return $stmt;
                 
             } catch (PDOException $e) {
                 echo $e->getMessage();
@@ -537,7 +515,9 @@
             }
 
         }
+        
 
+        //Count the number of patients  listed in the database
         public function NumPatient(){
             try {
                 $sql = "SELECT COUNT(*) FROM patient";;
@@ -549,6 +529,8 @@
             }
 
         }
+
+        //Count the number of doctor listed in the database
         public function NumDoctor(){
             try {
                 $sql = "SELECT COUNT(*) FROM doctor";;

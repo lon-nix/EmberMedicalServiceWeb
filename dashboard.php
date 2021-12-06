@@ -82,7 +82,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Today's Appointments</h6>
+                                                <h6 class="text-muted font-semibold">Appointments Today</h6>
                                                 <h6 class="font-extrabold mb-0"><?php echo $getTodayAppts ;?></h6>
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="col-auto">
-                                                            <p class=" mb-0">Congratulations on your graduation!</p>
+                                                            <p class=" mb-0">Dr. Han will be 30mins late for his 11 o'clock appointment today.</p>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -204,9 +204,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="col-auto">
-                                                            <p class=" mb-0">Wow amazing design! Can you make another
-                                                                tutorial for
-                                                                this design?</p>
+                                                            <p class=" mb-0">Thank you for letting us know. Please update us if there is any further delay.</p>
                                                         </td>
                                                     </tr>
                                                 </tbody>

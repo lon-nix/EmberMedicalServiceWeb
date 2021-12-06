@@ -21,6 +21,7 @@
       $new_password = md5($password.$username);
       
       
+      
       $orig_file = $_FILES["avatar"]["tmp_name"];
       $ext = pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION);
       $target_dir = 'uploads/';
@@ -29,11 +30,10 @@
 
       $user = $crud->getPatientbyUsername($username);
                 
-      if($result['num'] > 0){
+      if($user['num'] > 0){
         $_SESSION['error'] = '<div class="alert alert-warning text-center" role="alert">
-        <h4> Error: Email already exist : '.$username.' </h4>
+        <h4> Error: Username : '.$username.' already exist </h4>
         </div><br><br>';
-        //redirect('register.php');
   
           header("Location: register.php");
           
@@ -47,12 +47,13 @@
         $_SESSION['error'] = '<div class="alert alert-warning text-center" role="alert">
         <h4> Error: Email already exist : '.$email.' </h4>
         </div><br><br>';
-        //redirect('register.php');
 
           header("Location: register.php");
           
           
       } else{
+
+
 
         //call funcation to insert and track if success or not
         $issuccess = $crud->insertPatient($fname, $lname, $dob, $gender, $address, $phone, $email, $username, $new_password, $destination);
@@ -60,7 +61,7 @@
         
 
         if($issuccess){
-          SendEmail::SendEmail($email,'Welcome to Ember Medical Service',"Thank you".$fname.' '. $lname." for registering and a big welcome to the Ember Medical Service family.");
+          SendEmail::sendMail($email,'Welcome to Ember Medical Service',"Thank you".$fname.' '. $lname." for registering and a big welcome to the Ember Medical Service family.");
           include 'includes/successmessage.php';
         }
         else{

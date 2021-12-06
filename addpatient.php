@@ -13,7 +13,7 @@
       $lname = $_POST['lastName'];
       $address = $_POST['address'];
       $gender = $_POST['gender'];
-      $dob = $_POST['dateofbirth'];
+      $dob = date ('Y-m-d H:i:s',strtotime ($_POST['dateofbirth']));
       $email = $_POST['email'];
       $username = $_POST['username'];
       $password = $_POST['password'];
@@ -29,7 +29,7 @@
 
       $user = $crud->getPatientbyUsername($username);
                 
-      if($result['num'] > 0){
+      if($user['num'] > 0){
         $_SESSION['error'] = '<div class="alert alert-warning text-center" role="alert">
         <h4> Error: Username already exist : '.$username.' </h4>
         </div><br><br>';

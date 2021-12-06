@@ -5,14 +5,7 @@
   require_once 'includes/auth_check.php';
   require_once 'db/conn.php';
   $patient_id = $_SESSION['userid'];
-  
-  $results = $crud-> paitentApptDetails($patient_id);
-
-  echo "<td>" . date("g.i a", strtotime($results['startTime'])). "</td>";
-
-  
-
-  
+    
 ?>
 <div id="app">
     <?php require_once 'includes/patient_sidebar.php';?>
@@ -69,34 +62,33 @@
                                             </thead>
                                            
                                             <?php
-                                            $res = mysqli_query($con, "select * from appointment a inner join doctorschedule s on a.doctorSchedule_Id = s.schedule_Id 
-                                            inner join patient p on a.patient_id = p.patient_id inner  join doctor d on a.doctor_id = d.doctor_id where a.patient_id = $patient_id");
-                                    
-                                    if (!$res) {
-                                    die("Error running ".mysqli_error($res));
-                                    echo '<div class="alert alert-warning text-center" role="alert">
-                                    <h4> Error: No Appointments booked.</h4>
-                                    </div><br><br>';
-                                    }
-                                    
-                                    
-                                    while ($userRow = mysqli_fetch_array($res)) { ?>
-                                       <tbody>     
-                                        <td><?php echo $userRow['appt_Id'];?></td>
-                                        <td><?php echo $userRow['doctorName'];?></td>
-                                        <td><?php echo $userRow['scheduleDate'];?></td>
-                                        <td><?php echo date("g.i a", strtotime($userRow['startTime'])).' - ' . date("g.i a", strtotime($userRow['endTime']));?></td>
-                                        <td><?php echo $userRow['scheduleDay'];?></td>
-                                        <td><span class="badge bg-warning"><?php echo $userRow['status'];?></span></td>                                      
-                                        <td>
-                                           <a onclick="return confirm('Are you sure you want to cancel?')" 
-                                            href="deleteappt" class="btn-sm btn-danger"><i class="fas fa-times"></i></a>
-                                        </td>
-                                    
-                                        <?php }?>
-                                            
-                                           
-                                            </tbody>
+                                                //Query to find all appointments booked by patient
+                                                $res = mysqli_query($con, "select * from appointment a inner join doctorschedule s on a.doctorSchedule_Id = s.schedule_Id 
+                                                inner join patient p on a.patient_id = p.patient_id inner  join doctor d on a.doctor_id = d.doctor_id where a.patient_id = $patient_id");
+                                                
+                                                if ($res==false) {
+                                                die("Error running ".mysqli_error($res));
+                                                echo '<div class="alert alert-warning text-center" role="alert">
+                                                <h4> Error: No Appointments booked.</h4>
+                                                </div><br><br>';
+                                                }
+                                                
+                                                
+                                                while ($userRow = mysqli_fetch_array($res)) { ?>
+                                                <tbody>     
+                                                    <td><?php echo $userRow['appt_Id'];?></td>
+                                                    <td><?php echo $userRow['doctorName'];?></td>
+                                                    <td><?php echo $userRow['scheduleDate'];?></td>
+                                                    <td><?php echo date("g.i a", strtotime($userRow['startTime'])).' - ' . date("g.i a", strtotime($userRow['endTime']));?></td>
+                                                    <td><?php echo $userRow['scheduleDay'];?></td>
+                                                    <td><span class="badge bg-warning"><?php echo $userRow['status'];?></span></td>                                      
+                                                    <td>
+                                                    <a onclick="return confirm('Are you sure you want to cancel?')" 
+                                                        href="deleteappt" class="btn-sm btn-danger"><i class="fas fa-times"></i></a>
+                                                    </td>
+                                                </tbody>
+                                            <?php }?>
+                                        
                                         </table>
                                     </div>
                                 </div>
