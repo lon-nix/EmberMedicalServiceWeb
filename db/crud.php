@@ -185,10 +185,10 @@
         }
 
         //function to insert a new record into the attendee database
-        public function insertDoctor($name, $address, $phone, $dob, $email, $avatar_path){
+        public function insertDoctor($name, $address, $phone, $dob, $email, $username, $avatar_path){
             try {
-                $sql = "INSERT INTO doctor (doctorName, doctorAddress, doctorPhone, doctorDOB ,doctorEmail, avatar_path) 
-                VALUES(:name, :address, :phone, :dob, :email, :avatar_path)";
+                $sql = "INSERT INTO doctor (doctorName, doctorAddress, doctorPhone, doctorDOB ,doctorEmail, username, avatar_path) 
+                VALUES(:name, :address, :phone, :dob, :email, :username, :avatar_path)";
                 $stmt = $this->db->prepare($sql);
 
                 
@@ -197,6 +197,7 @@
                 $stmt->bindparam(':phone',$phone);
                 $stmt->bindparam(':dob',$dob);
                 $stmt->bindparam(':email',$email);
+                $stmt->bindparam(':username',$username);
                 $stmt->bindparam(':avatar_path',$avatar_path);
                 //execute statement
                 $stmt->execute();
