@@ -14,7 +14,7 @@
     $lname = $_POST['lastName'];
     $address = $_POST['address'];
     $gender = $_POST['gender'];
-    $dob = date ('Y-m-d H:i:s',strtotime ($_POST['dateofbirth']));
+    $dob = date ('Y-m-d',strtotime ($_POST['dateofbirth']));
     $email = $_POST['email'];
     $username = $_POST['username'];
     $phone = $_POST['phone'];
@@ -26,6 +26,10 @@
     $target_dir = 'uploads/';
     $destination = "$target_dir$phone.$ext";
     move_uploaded_file($orig_file,$destination);
+
+    if(empty($orig_file )){
+        $destination = "";
+      }
    
     //call funcation to insert and track if success or not
     $issuccess = $crud->editPatient($patient_id, $fname, $lname, $dob, $gender, $address, $phone, $email, $username, $destination);
@@ -86,18 +90,19 @@
                                                 <label for="firstName" class="col-sm-5 col-form-label">First Name</label>
                                                 <input required class="form-control" id="firstName" name="firstName" value="<?php echo $patient['patientFirstName'] ?>">
                                             </div>
+                                           
                                             <div class="col-md-6">
                                                 <label for="lastName" class="col-sm-5 col-form-label">Last Name</label>
                                                 <input required class="form-control" id="lastName" name="lastName" value="<?php echo $patient['patientLastName'] ?>">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="dateofbirth" class="form-label">Date of Birth</label>
-                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" value="">
+                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" value="<?php echo date ("d-m-Y",strtotime ($patient['patientDOB']));?>">
                                             </div>
                                             <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label>Patient Gender<span class="text-danger"></span></label>
-                                                            <select name="gender" id="gender" class="form-control" value="<?php echo $patient['patientGender'] ?>">
+                                                            <label>Patient DOB<span class="text-danger"></span></label>
+                                                            <select name="gender" id="gender" class="form-control">
                                                             <option value=""><?php echo $patient['patientGender'] ?></option>
                                                                 <option value="Male">Male</option>
                                                                 <option value="Female">Female</option>

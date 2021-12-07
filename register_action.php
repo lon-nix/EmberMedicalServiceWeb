@@ -20,14 +20,18 @@
       $phone = $_POST['phone'];
       $new_password = md5($password.$username);
       
-      
+    
       
       $orig_file = $_FILES["avatar"]["tmp_name"];
       $ext = pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION);
       $target_dir = 'uploads/';
       $destination = "$target_dir$phone.$ext";
       move_uploaded_file($orig_file,$destination);
-
+      
+      if(empty($orig_file )){
+        $destination = "";
+      }
+     
       $user = $crud->getPatientbyUsername($username);
                 
       if($user['num'] > 0){
@@ -56,7 +60,7 @@
 
 
         //call funcation to insert and track if success or not
-        $issuccess = $crud->insertPatient($fname, $lname, $dob, $gender, $address, $phone, $email, $username, $new_password, $destination);
+      $issuccess = $crud->insertPatient($fname, $lname, $dob, $gender, $address, $phone, $email, $username, $new_password, $destination);
         
         
 
@@ -66,8 +70,8 @@
         }
         else{
           include 'includes/errormessage.php';
-        }
-      }
+        }  
+      } 
     }
 
   }
@@ -77,7 +81,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col-md-7">
       <div class="card p-3 py-4">
-        <div class="text-center"> <img style="width: 18rem;" src="<?php echo $_POST['avatar']?>"class="card-img-top" alt="..."> </div>
+        <div class="text-center"> <img style="width: 18rem;" src="<?php echo empty($orig_file ) ? 'uploads/userPic.png' : $destination ;?>"class="card-img-top" alt="..."> </div>
           <div class="text-center mt-3"> <span class="bg-secondary p-1 px-4 rounded text-white"><?php echo $_POST['email'];?> </span>
               <h5 class="mt-2 mb-0"><?php echo $_POST['firstName'].' '. $_POST['lastName'];?></h5> <span><?php echo $_POST['username'];?></span>
               <div class="px-6 mt-3"> 

@@ -14,7 +14,7 @@
     $lname = $_POST['lastName'];
     $address = $_POST['address'];
     $gender = $_POST['gender'];
-    $dob = date ('Y-m-d H:i:s',strtotime ($_POST['dateofbirth']));
+    $dob = date ('Y-m-d',strtotime ($_POST['dateofbirth']));
     $username = $_POST['username'];
     $phone = $_POST['phone'];
     
@@ -96,7 +96,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="dateofbirth" class="form-label">Date of Birth</label>
-                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" >
+                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" value="<?php echo date ("d-m-Y",strtotime ($patient['patientDOB']));?>">
                                             </div>
                                             <div class="col-md-6">
                                                         <div class="form-group">

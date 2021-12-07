@@ -27,6 +27,10 @@
       $destination = "$target_dir$phone.$ext";
       move_uploaded_file($orig_file,$destination);
 
+      if(empty($orig_file )){
+        $destination = "";
+      }
+
       $user = $crud->getPatientbyUsername($username);
                 
       if($user['num'] > 0){

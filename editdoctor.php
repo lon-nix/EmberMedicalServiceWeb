@@ -12,7 +12,7 @@
     //extract values from the $_POST array
     $name = $_POST['name'];
     $address = $_POST['address'];
-    $dob = date ('Y-m-d H:i:s',strtotime ($_POST['dateofbirth']));
+    $dob = date ('Y-m-d',strtotime ($_POST['dateofbirth']));
     $email = $_POST['email'];
     $username = $_POST['username'];
     $phone = $_POST['phone'];
@@ -24,6 +24,10 @@
     $target_dir = 'uploads/';
     $destination = "$target_dir$phone.$ext";
     move_uploaded_file($orig_file,$destination);
+
+    if(empty($orig_file )){
+        $destination = "";
+      }
    
     //call funcation to insert and track if success or not
     $issuccess = $crud->editDoctor($id, $name, $address, $phone, $dob, $email, $username, $destination);
@@ -92,7 +96,7 @@
 
                                             <div class="col-md-6">
                                                 <label for="dateofbirth" class="form-label">Date of Birth</label>
-                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" value="">
+                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" value="<?php echo date ("d-m-Y",strtotime ($doctor['patientDOB']));?>">
                                             </div>
                                             
 

@@ -9,39 +9,7 @@
   $id = $_GET['id'];
   $patient = $crud-> getPatientDetails($id);
 
-  if(isset($_POST['submit'])){
-    //extract values from the $_POST array
-    $fname = $_POST['firstName'];
-    $lname = $_POST['lastName'];
-    $address = $_POST['address'];
-    $gender = $_POST['gender'];
-    $dob = date ('Y-m-d H:i:s',strtotime ($_POST['dateofbirth']));
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $phone = $_POST['phone'];
-    
-    
-
-    $orig_file = $_FILES["avatar"]["tmp_name"];
-    $ext = pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION);
-    $target_dir = 'uploads/';
-    $destination = "$target_dir$phone.$ext";
-    move_uploaded_file($orig_file,$destination);
-   
-    //call funcation to insert and track if success or not
-    $issuccess = $crud->editPatient($id, $fname, $lname, $dob, $gender, $address, $phone, $email, $username, $destination);
-
-    //Rediret to viewrecords.php
-    if($issuccess){
-      include 'includes/successmessage.php';
-        header("Location: dashboard.php");
-    }
-    else{
-      include 'includes/errormessage.php';
-    }
-
-}
-
+  
 ?>
 
 <div id="app">
@@ -83,7 +51,7 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="container"> 
-                                        <div class="text-center"> <img style="width: 18rem;" src="<?php echo empty($doctor['avatar_path']) ? 'uploads/userPic.png' : $doctor['avatar_path'] ; ?>"class="card-img-top" alt="..."> </div>
+                                        <div class="text-center"> <img style="width: 18rem;" src="<?php echo empty($patient['avatar_path']) ? 'uploads/userPic.png' : $patient['avatar_path'] ; ?>"class="card-img-top" alt="..."> </div>
                                             
                                             <fieldset disabled >
                                                 <div class="col-md-4">

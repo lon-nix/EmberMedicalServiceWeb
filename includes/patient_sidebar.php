@@ -25,6 +25,7 @@
                     <li class="sidebar-title">
                     <div class="card" >
                         <img src="<?php echo empty($patient['avatar_path']) ? 'uploads/userPic.png' : $patient['avatar_path'] ; ?>"class="card-img-top" alt="..." style="width: 15rem;"> 
+                       
                         <div class="card-body" style="width: 18rem;">
                             <h5 class="card-title"><?php echo $patient['patientFirstName'].' '.$patient['patientLastName'] ;?></h5>
                             <h6 class="card-subtitle mb-2 text-muted"></h6>

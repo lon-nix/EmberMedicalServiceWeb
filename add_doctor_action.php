@@ -22,7 +22,9 @@
       $destination = "$target_dir$phone.$ext";
       move_uploaded_file($orig_file,$destination);
        
-
+      if(empty($orig_file )){
+        $destination = "";
+      }
       //call funcation to insert and track if success or not
       $issuccess = $crud->insertDoctor($name, $address, $phone, $dob, $email, $username, $destination);
       
@@ -42,7 +44,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col-md-7">
         <div class="card p-3 py-4">
-            <div class="text-center"> <img style="width: 18rem;" src="<?php echo empty($destination ) ? 'uploads/userPic.png' : $destination ; ?>"class="card-img-top" alt="..."> </div>
+            <div class="text-center"> <img style="width: 18rem;" src="<?php echo empty($orig_file ) ? 'uploads/userPic.png' : $destination ; ?>"class="card-img-top" alt="..."> </div>
               <div class="text-center mt-3"> <span class="bg-secondary p-1 px-4 rounded text-white"><?php echo $_POST['email'] ?> </span>
                   <h5 class="mt-2 mb-0"><?php echo $_POST['Name']?></h5> <span><?php echo $_POST['username']?></span>
                   <div class="px-6 mt-3"> 

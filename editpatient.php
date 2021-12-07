@@ -25,6 +25,10 @@
     $target_dir = 'uploads/';
     $destination = "$target_dir$phone.$ext";
     move_uploaded_file($orig_file,$destination);
+
+    if(empty($orig_file )){
+        $destination = "";
+      }
    
     //call funcation to insert and track if success or not
     $issuccess = $crud->editPatient($patient_id, $fname, $lname, $dob, $gender, $address, $phone, $email, $username, $destination);

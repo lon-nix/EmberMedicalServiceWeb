@@ -88,8 +88,8 @@
             $( "#dateofbirth" ).datepicker({
             changeMonth: true,
             changeYear: true,
-            yearRange: "-100:+0",
-            dateFormat: "yy-mm-dd"
+            autoclose: true,
+            dateFormat: "yyyy-mm-dd"
             });
 
                        
