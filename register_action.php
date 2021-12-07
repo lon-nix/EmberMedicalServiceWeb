@@ -77,7 +77,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col-md-7">
       <div class="card p-3 py-4">
-        <div class="text-center"> <img style="width: 18rem;" src="<?php echo empty($destination) ? 'uploads/userPic.png' : $destination ; ?>"class="card-img-top" alt="..."> </div>
+        <div class="text-center"> <img style="width: 18rem;" src="<?php echo $_POST['avatar']?>"class="card-img-top" alt="..."> </div>
           <div class="text-center mt-3"> <span class="bg-secondary p-1 px-4 rounded text-white"><?php echo $_POST['email'];?> </span>
               <h5 class="mt-2 mb-0"><?php echo $_POST['firstName'].' '. $_POST['lastName'];?></h5> <span><?php echo $_POST['username'];?></span>
               <div class="px-6 mt-3"> 
@@ -90,7 +90,7 @@
                     </table>
                 </div>
                 <div class=" p-md-4">
-                    <a href="patient_dashboard.php" class="btn btn-info"><i class="fas fa-book"></i>Appointments</a>
+                    <a href="patient_dashboard.php" class="btn btn-info"><i class="fas fa-book"></i> Appointments</a>
                 </div> 
               </div>
           </div>
